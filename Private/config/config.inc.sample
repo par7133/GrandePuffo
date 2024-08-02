@@ -1,0 +1,180 @@
+<?php
+
+/**
+ * Copyright 2021, 2026 5 Mode
+ *
+ * This file is part of Grande Puffo.
+ *
+ * GrandePuffo is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * GrandePuffo is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.  
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with GrandePuffo. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * config.inc
+ * 
+ * Configuration settings.
+ *
+ * @author Daniele Bonini <my25mb@has.im>
+ * @copyrights (c) 2016, 2026, 5 Mode
+  */
+
+define('DEBUG', true);
+
+define('APP_NAME', "GrandePuffo");
+define('APP_HOST', "grandepuffo.org");
+define('APP_PATH', "/path/to/GrandePuffo");
+define('APP_PRIVATE_PATH', "/path/to/GrandePuffo/Private");
+define('APP_PUBLIC_PATH', "/path/to/GrandePuffo/Public");
+define('APP_SECRETS_FOLDER',"scr");
+define('APP_ROUTE_PATH', "/path/to/GrandePuffo/Private/routes");
+define('APP_ERROR_PATH', "/path/to/GrandePuffo/Private/error");
+define('APP_LICENSE', <<<LICENSETEXT
+Copyright 2021, 2024 5 Mode
+
+This file is part of GrandePuffo.
+
+GrandePuffo is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+GrandePuffo is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.  
+ 
+You should have received a copy of the GNU General Public License
+along with GrandePuffo. If not, see <https://www.gnu.org/licenses/>.
+LICENSETEXT
+);
+
+define('COOKIE_PREFIX', "GRANDEP_");
+define('COOKIE_PATH', "/");
+define('COOKIE_DOMAIN', "grandepuffo.org");
+define('COOKIE_EXPIRE', 86400); // One day
+
+define('ROUTING_RES0', "/res/topbanner1.png");
+define('ROUTING_RES1', "/res/logo.png");
+define('ROUTING_RES2', "/res/sidebanner3.png");
+define('ROUTING_RES3', "/res/scriplet1.js");
+define('ROUTING_RES4', "/res/pix5.png");
+
+$CONFIG = [
+  'DEBUG' => true,
+
+  'APP' => [
+      'NAME' => "GrandePuffo",
+      'HOST' => "grandepuffo.org",
+      'PATH' => "/path/to/GrandePuffo/Public",
+      'PRIVATE_PATH' => "/path/to/GrandePuffo/Private",
+      'PUBLIC_PATH' => "/path/to/GrandePuffo/Public",
+      'SECRETS_FOLDER' => "scr",
+      'ROUTE_PATH' => "/path/to/GrandePuffo/Private/routes",
+      'ERROR_PATH' => "/path/to/GrandePuffo/Private/error",
+      'LICENSE' => <<<LICENSETEXT
+Copyright 2021, 2024 5 Mode
+
+This file is part of GrandePuffo.
+
+GrandePuffo is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+GrandePuffo is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.  
+ 
+You should have received a copy of the GNU General Public License
+along with GrandePuffo. If not, see <https://www.gnu.org/licenses/>.
+LICENSETEXT
+             
+            ],
+            
+  'COOKIE' => [            
+      'PREFIX', "GRANDEP_",
+      'PATH', "/",
+      'DOMAIN', "grandepuffo.org",
+      'EXPIRE', 86400
+            ]         
+];
+
+$ROUTING = [
+
+    'RES_ROUTER_PREFIX' => [
+        0 => [1000000, 1199999],
+        1 => [1200000, 1399999],
+        2 => [1400000, 1599999]
+      ],
+
+    'RES_ROUTER' => [
+        0 => "idxpage1img.php",
+        1 => "idxpage1html.php",
+        2 => "idxpage1js.php"
+      ],
+
+    'RES_PASSWORD' => [
+        0 => "res_password1",
+        1 => "res_password2",
+        2 => "res_password3",
+        3 => "res_password4",
+        4 => "res_password5"
+    ],
+
+    'RES_SALT' => [
+        0 => "res_salt1",
+        1 => "res_salt2",
+        2 => "res_salt3",
+        3 => "res_salt4",
+        4 => "res_salt5"
+    ],
+
+    'RES' => [
+        0 => "/res/topbanner1.png",
+        1 => "/res/logo.png",
+        2 => "/res/sidebanner3.png",
+        3 => "/res/scriplet1.js",
+        4 => "/res/pix5.png"
+    ],
+
+    'RES_TYPE' => [
+        0 => "image",
+        1 => "image",
+        2 => "image",
+        3 => "script",
+        4 => "image"
+    ],
+
+    'RES_DISPLAIED_SHA' => [
+        0 => "d1493e2ef9cdeaa559bbf49c5865bd4777eec2117186db53b0698b7d2105ca10",
+        1 => "ba78c55eae177c8e6749fa6aded78757ccfb10c85121cb4fbbb76b9ce3ef4db2",
+        2 => "100977ab07dc32e7fa389ccc8555a0e08b62ee052149cf00e706fa08275fcc53",
+        3 => "b0586a9e50b39f16f0584948f1574cf9ccce0194b71c95b5a624cf906d0d6b06",
+        4 => "3121b07e1fabb8751fbd1c8957281f6cbfefeb391de5da072c00ecd0b6577be1"
+    ],
+
+    'RES_SHA' => [
+        0 => "d1493e2ef9cdeaa559bbf49c5865bd4777eec2117186db53b0698b7d2105ca10",
+        1 => "ba78c55eae177c8e6749fa6aded78757ccfb10c85121cb4fbbb76b9ce3ef4db2",
+        2 => "100977ab07dc32e7fa389ccc8555a0e08b62ee052149cf00e706fa08275fcc53",
+        3 => "b0586a9e50b39f16f0584948f1574cf9ccce0194b71c95b5a624cf906d0d6b06",
+        4 => "3121b07e1fabb8751fbd1c8957281f6cbfefeb391de5da072c00ecd0b6577be1"
+    ],
+
+    'WEBPAGE_ELEMENT' => [
+        0 => "funnyctrl1",
+        1 => "funnyctrl2",
+        2 => "funnyctrl3",
+        3 => "funnyctrl4",
+        4 => "funnyctrl5"
+    ]
+];
