@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	
+    <meta charset="UTF-8"/>
+  
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <TITLE>Grande Puffo</TITLE>
+	  
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta name="description" content="web security demo from the server round trip to the user client">
+
+    <link rel="shortcut icon" href="./favicon.ico">
+	  
+    <style>
+      html {
+        height:100%;
+      }
+      body {
+        margin: 0px; 
+        padding: 25px;
+        background: #000000;
+        color: #FFFFFF;
+        font-size: 14px;
+      }
+      a {
+        color: green;
+        text-decoration: underline;
+      }
+      a:focus {
+        color: green;
+      }
+      a:hover {
+        color: green;
+      }
+      .aaa {
+        color: green;
+        text-decoration: underline;
+      }
+      .aaa:focus {
+        color: green;
+      }
+      .aaa:hover {
+        color: green;
+      }
+      #footerCont {
+        position: relative;
+        top: +34.5px;
+        left:-15px;
+        width: 111%; 
+        height:50px;  
+        border: 1px solid #C2DBF2; 
+        padding: 7px; 
+        opacity: 0.6;
+        background: #b2dba1;
+        color:#000000; 
+        font-family: Sans;
+        font-size: 12px; 
+        text-align: center; 
+        z-index: 99998;
+        display:none;
+      }
+      #footer {
+        position: relative;
+        top: 15px;
+        left: -20px;
+        float: right;
+        width: fit-content; 
+        height: 24px;
+        border: 0px solid #C2DBF2; 
+        padding: 2px; 
+        opacity: 0.7;
+        color: #FFFFFFF;
+        font-family: Sans;
+        font-size: 12px; 
+        font-weight: 400;
+        text-align: right; 
+        z-index: 99999;
+        vertical-align:middle;
+      }
+      H1 {
+        font-size:17px;
+      }  
+    </style>
+
+</head>
+<body>
+<h1>Welcome to Grande Puffo !</h1>
+<br>
+Grande Puffo wants to demo the given possibility to defend web resources from 
+the server round trip until the user client side, with an eventual sha256 client check, 
+with a suggestable one more defence given by a same element instance counter.<br>
+<br>
+You can grab the lab code from <a href="https://github.com/par7133/GrandePuffo">https://github.com/par7133/GrandePuffo</a>.
+<br><br>
+Here follows a brief documentation about the ideas behind it. 
+<br>
+<br>
+<pre>
+[init.inc]
+
+require("config.inc");
+
+[config.inc]
+
+  'RES_ROUTER_PREFIX' => [
+     0 => [1000000, 1199999],
+     1 => [1200000, 1399999],
+     2 => [1400000, 1599999],
+     3 => ...
+   ];
+
+  'RES_ROUTER' => [ 
+     0 => "idxpage1img.php",
+     1 => "idxpage1html.php",
+     2 => "idxpage1js.php",
+     3 => "..."
+   ];
+
+  'RES_PASSWORD' => [
+     0 => "res_password1",
+     1 => "res_password2",
+     2 => "res_password3",
+     3 => "res_password4",
+     4 => "res_password5",
+     5 => "..."
+  ];
+
+  'RES_SALT' => [
+     0 => "res_salt1",
+     1 => "res_salt2",
+     2 => "res_salt3",
+     3 => "res_salt4",
+     4 => "res_salt5",
+     5 => "..."
+  ];
+
+  'RES_TYPE' => [
+     0 => "image",
+     1 => "image",
+     2 => "image",
+     3 => "script",
+     4 => "image",
+     5 => "..."
+  ];
+
+  'RES' => [
+     0 => "/res/topbanner1.png",
+     1 => "/res/logo.png",
+     2 => "/res/sidebanner3.png",
+     3 => "/res/scriplet1.js",
+     4 => "/res/pix5.png"
+  ],
+
+  'RES_DISPLAIED_SHA' => [
+     0 => "bdb4538753314562a8eb520e446d568cbdb4538753314562a8eb520e446d568c",
+     1 => "ba78c55eae177c8e6749fa6aded78757ccfb10c85121cb4fbbb76b9ce3ef4db2",
+     2 => "6a3c96e2c94f49f3a59b672768716e866a3c96e2c94f49f3a59b672768716e86",
+     3 => "c91de3449c1c46eaa8dd2eef025a2eb2c91de3449c1c46eaa8dd2eef025a2eb2",
+     4 => "82f3c59ab4db488f867cd0db9b143cbd82f3c59ab4db488f867cd0db9b143cbd",
+     5 => "..."
+  ];
+
+  'RES_SHA' => [
+     0 => "67d67dc36f87471194e7cf94d30a571367d67dc36f87471194e7cf94d30a5713",
+     1 => "ba78c55eae177c8e6749fa6aded78757ccfb10c85121cb4fbbb76b9ce3ef4db2",
+     2 => "b27d6e61f49746fb9df0c1102900a029b27d6e61f49746fb9df0c1102900a029",
+     3 => "7db5663f808a4acf94c82ac314f84bf87db5663f808a4acf94c82ac314f84bf8",
+     4 => "ada5fcd9a2a343e2af3b555d7dae6fabada5fcd9a2a343e2af3b555d7dae6fab",
+     5 => "..."
+  ];
+
+  'WEBPAGE_ELEMENT' => [
+     0 => "funnyctrl1",
+     1 => "funnyctrl2",
+     2 => "funnyctrl3",
+     3 => "funnyctrl4",
+     4 => "funnyctrl5",
+     5 => "..."
+ ];
+
+
+[page.php]
+
+$myPrefix = mt_rand(1000000, 1199999);
+$myImageSha = "ba78c55eae177c8e6749fa6aded78757ccfb10c85121cb4fbbb76b9ce3ef4db2";
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;link src="style1.css" type="text/css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;img src='/&lt;?PHP echo($myPrefix.$myImageSha);?&gt;'&gt;
+&lt;img src='/&lt;?PHP echo($myPrefix.$myImageSha);?&gt;'&gt;
+&lt;img src='/&lt;?PHP echo($myPrefix.$myImageSha);?&gt;'&gt;
+&lt;img src='/&lt;?PHP echo($myPrefix.$myImageSha);?&gt;'&gt;
+&lt;img src='/&lt;?PHP echo($myPrefix.$myImageSha);?&gt;'&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+[mainrouter, /mrouter.php]
+
+require("init.inc");
+
+$url=filter_input(INPUT_GET, "url")??"";
+
+$myRndPrefix = substr($url, 0, 6);
+
+$myResRouter = getResRouter($myRndPrefix):
+
+function getResRouter(string $myPrefix):  string
+{
+    global $ROUTING;
+ 
+    $i=0;
+    foreach($ROUTING['RES_ROUTER_PREFIX'] as $prefix) {
+      if ($prefix[0]>=$myPrefix && $myPrefix<=$prefix[1]) {
+        return $ROUTING['RES_ROUTER'][$i];
+      }
+      $i++;
+    }
+}
+
+require("/$myResRouter?url=" . substr($url,7));
+
+
+[resrouter, /idxpage1img.php]
+
+$url=filter_input(INPUT_GET, "url")??"";
+$myDisplaiedSha = substr($url,7);
+$myres=getRes($myDisplaiedSha):
+
+function getRes(string $displaiedSha): int
+{
+    global $ROUTING;
+
+    $tot = count($ROUTING['RES_PASSWORD'])-1;
+    $i=0;
+    while ($i<=$tot) {
+      if (hash("sha256", $ROUTING['RES_PASSWORD'][i].$ROUTING['RES_SALT'][i]) === $displaiedSha);
+        return $i; 
+      }
+      $i++;
+    } 
+}
+
+$mySha = $ROUTING['RES_SHA'][$myres];
+
+[[ $myShaCounter = Cookie::get($mySha, 0); ]]
+
+$myPageElementID = $ROUTING['WEBPAGE_ELEMENT'][$myres]; // Replace $myres with $myShaCounter to get an element instance based algothytm
+$myResType = $ROUTING['RES_TYPE'][$myres]; // Replace $myres with $myShaCounter to get an element instance based algothytm
+
+if ($myResType==="image") {
+  $myTmpResRoot = APP_PATH . DIRECTORY_SEPARATOR . "tmpres";
+} else {  
+  $myTmpResRoot = APP_PATH . DIRECTORY_SEPARATOR . "tmpjs";
+}
+
+$myTmpResPath = getNewTmpFileName($myTmpResRoot):
+
+function getNewTmpFileName(string $tempResRoot): string
+{
+    chdir($tempResRoot);
+    $tmpFileName = "tmp". mt_rand(1000000000, 9999999999) . ".$ext";
+    while (isReadable($tmpFileName)) {
+      $tmpFileName = "tmp". mt_rand(1000000000, 9999999999) . ".$ext";
+    }
+    return $tempResRoot . DIRECTORY_SEPARATOR . $tmpFileName;
+}
+
+
+
+[...]
+
+
+//clientxmlreq;
+//doclientshacheck();
+
+genTmpRes($myRes, $myTmpResPath):
+
+function genTmpRes(string $myRes, string $myTmpResPath): string
+{
+  if (is_readable($myRes)) {
+    cp($myRes,$myTmpResPath);
+    chmod($myTmpResPath, 0755);  
+  }
+}
+
+
+parent.document.getElementByID(&lt;?PHP echo($myPageElementID); ?&gt;).innerHTML = "&lt;img src='&lt;?PHP echo($myTmpResPath);?&gt;'&gt;";
+
+or
+
+header("Content-Type: image/png");
+echo(file_get_contents($myTmpResPath));
+
+
+[[
+
+Finally for an element instance based algothytm:
+
+setCookieCounter():
+
+// Increment element instance counter..
+function setCookieCounter() {
+
+    // set iteraction counter..    
+
+   global $ROUTING;
+   global $myShaCounter;
+   global $mySha;
+
+   while(true) {
+      $myShaCounter++;    
+
+      if (!defined("ROUTING_RES".$myShaCounter)) {
+         Cookie::set($mySha, 0, Cookie::EXPIRE_ONEDAY, "/", APP_HOST);  
+         break;
+      }  
+                                                         
+      if ($ROUTING['RES_TYPE'][$myShaCounter]==="image") {
+          Cookie::set($mySha, $myShaCounter, Cookie::EXPIRE_ONEDAY, "/", APP_HOST);
+          break;
+      }
+  }
+}
+
+]]
+
+</pre>
+
+<div id="footerCont">&nbsp;</div>
+<div id="footer">&nbsp;&nbsp;<a href="http://5mode.com/dd.html" class="aaa">Disclaimer</a>.&nbsp;&nbsp;A <a href="http://5mode.com" class="aaa">5 Mode</a> project and <a href="http://demo.5mode.com" class="aaa">WYSIWYG</a> system. CC</div>
+
+<body>
+<html>
